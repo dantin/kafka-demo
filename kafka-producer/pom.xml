@@ -11,6 +11,25 @@
 
     <artifactId>kafka-producer</artifactId>
 
+    <build>
+        <plugins>
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                        <manifest>
+                            <mainClass>com.cosmos.kafka.client.producer.SimpleProducer</mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <Built-Time>${maven.build.timestamp}</Built-Time>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <dependencies>
         <dependency>
             <groupId>org.apache.kafka</groupId>
