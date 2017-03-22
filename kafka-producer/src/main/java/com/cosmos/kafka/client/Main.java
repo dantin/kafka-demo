@@ -10,6 +10,7 @@ public class Main {
         String topic = args[0];
         System.out.printf("Using topic: %s\n", topic);
         Thread producer = new Thread(new SimpleProducer(topic));
+        producer.start();
         producer.join();
     }
 }
