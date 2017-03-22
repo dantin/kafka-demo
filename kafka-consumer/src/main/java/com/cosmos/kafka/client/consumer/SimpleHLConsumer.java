@@ -38,15 +38,19 @@ public class SimpleHLConsumer implements Runnable {
         Map<String, Integer> topicCountMap = new HashMap<>();
         topicCountMap.put(topic, 1);
         Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);
-        KafkaStream<byte[], byte[]> stream = consumerMap.get(topic).get(0);
-        ConsumerIterator<byte[], byte[]> it = stream.iterator();
-        while (it.hasNext()) {
-            System.out.printf("Receive: %s\n", new String(it.next().message()));
-            try {
-                Thread.sleep(3);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        List<KafkaStream<byte[], byte[]>> streams = consumerMap.get(topic);
+        for(final KafkaStream<byte[], byte[]> stream : streams) {
+            ConsumerIterator<byte[], byte[]> it = stream.iterator();
+            while (it.hasNext()) {
+                System.out.printf("Receive: %s\n", new String(it.next().message()));
+                try {
+                    Thread.sleep(3);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
+
+        consumer.shutdown();
     }
 }
