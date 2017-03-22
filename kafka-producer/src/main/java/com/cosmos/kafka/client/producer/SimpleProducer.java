@@ -32,7 +32,7 @@ public class SimpleProducer implements Runnable {
             this.producer.send(new ProducerRecord<>(this.topic, message));
             i++;
             try {
-                Thread.sleep(100);
+                Thread.sleep(3);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

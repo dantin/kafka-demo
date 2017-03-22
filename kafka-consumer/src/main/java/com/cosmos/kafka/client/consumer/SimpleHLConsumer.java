@@ -42,7 +42,7 @@ public class SimpleHLConsumer implements Runnable {
         while (it.hasNext()) {
             System.out.printf("Receive: %s\n", new String(it.next().message()));
             try {
-                Thread.sleep(300);
+                Thread.sleep(3);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
