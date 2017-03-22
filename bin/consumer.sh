@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-MODULE_NAME=kafka-producer
+MODULE_NAME=kafka-consumer
 
 cd `dirname $0`
 BIN_DIR=`pwd`
