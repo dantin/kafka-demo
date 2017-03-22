@@ -1,31 +1,41 @@
 package com.cosmos.kafka.client.producer;
 
-
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.util.Properties;
 
-public class SimpleProducer {
-    private static KafkaProducer<Integer, String> producer;
+public class SimpleProducer implements Runnable {
+    private KafkaProducer<Integer, String> producer;
+    private String topic;
 
-    public SimpleProducer() {
+    public SimpleProducer(String topic) {
         final Properties props = new Properties();
         props.put("metadata.broker.list", "localhost:9092");
         props.put("bootstrap.servers", "localhost:9092");
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        // by default, producer works in "fire and forget" mode
         props.put("request.required.acks", "1");
 
-        producer = new KafkaProducer<>(props);
+        this.producer = new KafkaProducer<>(props);
+        this.topic = topic;
     }
 
-    public static void main(String[] args) {
-        SimpleProducer sp = new SimpleProducer();
-        String topic = args[0];
-        String message = args[1];
-        System.out.printf("Send: %s\n", message);
-        producer.send(new ProducerRecord<>(topic, message));
-        producer.close();
+    @Override
+    public void run() {
+        System.out.println("Sending 1000 messages");
+        int i = 1;
+        while (i <= 1000) {
+            String message = String.format("Message[%d]", i);
+            System.out.printf("Send: %s\n", message);
+            this.producer.send(new ProducerRecord<>(this.topic, message));
+            i++;
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
