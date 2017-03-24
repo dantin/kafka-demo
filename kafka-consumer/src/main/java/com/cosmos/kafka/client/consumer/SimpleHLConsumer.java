@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import static org.apache.kafka.clients.consumer.ConsumerConfig.*;
+
 public class SimpleHLConsumer implements Runnable {
 
     private final ConsumerConnector consumer;
@@ -23,11 +25,9 @@ public class SimpleHLConsumer implements Runnable {
 
     private static ConsumerConfig createConsumerConfig() {
         Properties props = new Properties();
-        props.put("zookeeper.connect", "localhost:2181");
-        props.put("group.id", "test-consumer-group");
-        props.put("zookeeper.session.timeout.ms", "40000");
-        props.put("zookeeper.sync.time.ms", "200");
-        props.put("auto.commit.interval.ms", "1000");
+        props.put(BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(GROUP_ID_CONFIG, "test-consumer-group");
+        props.put(AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
 
         return new ConsumerConfig(props);
     }
@@ -39,7 +39,7 @@ public class SimpleHLConsumer implements Runnable {
         topicCountMap.put(topic, 1);
         Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);
         List<KafkaStream<byte[], byte[]>> streams = consumerMap.get(topic);
-        for(final KafkaStream<byte[], byte[]> stream : streams) {
+        for (final KafkaStream<byte[], byte[]> stream : streams) {
             ConsumerIterator<byte[], byte[]> it = stream.iterator();
             while (it.hasNext()) {
                 System.out.printf("Receive: %s\n", new String(it.next().message()));

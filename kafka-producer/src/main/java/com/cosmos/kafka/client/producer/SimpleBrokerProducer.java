@@ -5,6 +5,8 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.util.Properties;
 
+import static org.apache.kafka.clients.producer.ProducerConfig.*;
+
 /**
  * Producer using single partition
  */
@@ -14,12 +16,11 @@ public class SimpleBrokerProducer implements Runnable {
 
     public SimpleBrokerProducer(String topic) {
         final Properties props = new Properties();
-        props.put("metadata.broker.list", "localhost:9092");
-        props.put("bootstrap.servers", "localhost:9092");
-        props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        props.put(BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+        props.put(VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         // by default, producer works in "fire and forget" mode
-        props.put("request.required.acks", "1");
+        props.put(ACKS_CONFIG, "1");
 
         this.producer = new KafkaProducer<>(props);
         this.topic = topic;
