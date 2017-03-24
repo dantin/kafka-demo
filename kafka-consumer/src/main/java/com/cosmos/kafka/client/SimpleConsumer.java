@@ -5,7 +5,7 @@ import com.cosmos.kafka.client.consumer.SimpleHLConsumer;
 /**
  * Bootstrap class
  */
-public class Main {
+public class SimpleConsumer {
     public static void main(String[] args) throws InterruptedException {
         String topic = args[0];
         System.out.printf("listening topic: %s\n", topic);

@@ -36,7 +36,7 @@
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
                         <manifest>
-                            <mainClass>com.cosmos.kafka.client.Main</mainClass>
+                            <mainClass>com.cosmos.kafka.client.SimpleConsumer</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
