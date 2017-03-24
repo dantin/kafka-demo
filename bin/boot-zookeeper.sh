@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-cd /opt/kafka/kafka_2.12-0.10.2.0
-bin/zookeeper-server-start.sh config/zookper.properties
+KAFKA_ROOT=/opt/kafka/kafka_2.12-0.10.2.0
+
+${KAFKA_ROOT}/bin/zookeeper-server-start.sh ${KAFKA_ROOT}/config/zookper.properties
