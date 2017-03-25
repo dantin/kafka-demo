@@ -28,3 +28,7 @@ hs_err_pid*
 *.iws
 
 target/
+build/
+.gradle/
+.idea/
+!gradle/wrapper/gradle-wrapper.jar!gradle/wrapper/gradle-wrapper.jar

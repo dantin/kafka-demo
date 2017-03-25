@@ -1,0 +1,6 @@
+rootProject.name = 'kafka-demo'
+include ':kafka-producer'
+include ':kafka-consumer'
+
+project(':kafka-producer').projectDir = "$rootDir/kafka-producer" as File
+project(':kafka-consumer').projectDir = "$rootDir/kafka-consumer" as File

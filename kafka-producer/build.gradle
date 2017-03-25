@@ -1,0 +1,7 @@
+apply plugin: 'org.springframework.boot'
+
+description = 'Producer of Apache Kafka'
+
+dependencies {
+    compile group: 'org.apache.kafka', name: 'kafka_2.10', version:'0.10.2.0'
+}
