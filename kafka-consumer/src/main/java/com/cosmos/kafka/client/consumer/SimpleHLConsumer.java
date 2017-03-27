@@ -28,6 +28,10 @@ public class SimpleHLConsumer implements Runnable {
         props.put(BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(GROUP_ID_CONFIG, "test-consumer-group");
         props.put(AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
+        props.put("zookeeper.connect", "localhost:2181");
+        props.put("zookeeper.session.timeout.ms", "40000");
+        props.put("zookeeper.sync.time.ms", "200");
+        props.put("auto.commit.interval.ms", "1000");
 
         return new ConsumerConfig(props);
     }
